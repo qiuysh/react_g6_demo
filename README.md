@@ -14,7 +14,10 @@ yarn start
 打包命令!
 ```
 yarn build
+
 ```
+### 效果图
+![效果图](./src/assets/images/tuli.png)
 
 
 
