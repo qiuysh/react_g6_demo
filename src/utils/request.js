@@ -11,8 +11,8 @@ export default function request(
     headers: {
       "content-type": "application/json;charset=UTF-8",
     },
-    withCredentials: true,
-    timeout: 5000,
+    // withCredentials: true,
+    // timeout: 5000,
     ...options,
   })
     .then((res) => {
@@ -20,25 +20,16 @@ export default function request(
       const successed = checkRspStatus(status);
 
       if (successed) {
-        return Promise.resolve({
+        return {
           ...res.data,
-        });
+        };
       }
-
       // 错误提示
       tipError(res);
-
-      const error = {
-        name: "http error",
-        message: "http response status error",
-        config: options,
-        code: `${status}`,
-      };
-      return Promise.reject(error);
+      
     })
     .catch(error => {
       const { response } = error;
-
       // 错误提示
       tipError(
         response || {
@@ -46,22 +37,6 @@ export default function request(
           status: 600,
         },
       );
-
-      let msg;
-      let statusCode;
-
-      if (response && response instanceof Object) {
-        const { statusText } = response;
-        statusCode = response.status;
-        msg = response.data.message || statusText;
-      }
-
-      return Promise.resolve({
-        ...response,
-        success: false,
-        status: statusCode,
-        message: msg,
-      });
     });
 }
 
@@ -79,12 +54,13 @@ function tipError(res) {
     case 400:
       message.error("请求错误，请刷新重试");
       break;
-
+    case 500:
+        message.error("系统异常");
+      break;
     default:
-      if (status >= 500) {
+      if (status >= 600) {
         message.error("网络错误，请刷新重试");
       }
-      // 注意：其他错误的错误提示需要在业务内自行处理
       break;
   }
   console.error(
