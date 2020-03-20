@@ -17,7 +17,7 @@ yarn build
 
 ```
 ### 效果图
-![效果图](./src/assets/images/tuli.png)
+![效果图](https://github.com/qiuysh/react_g6_demo/blob/master/src/assets/images/tuli.png)
 
 
 
