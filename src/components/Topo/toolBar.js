@@ -22,7 +22,7 @@ export default function ToolBar(props) {
           value={xR} 
         />
       </Tooltip>
-    </div>&nbsp;&nbsp;&nbsp;:
+    </div>
     <div className="item-tool">
       <Tooltip title={<div>
         垂直半径，影响垂直布局的大小。

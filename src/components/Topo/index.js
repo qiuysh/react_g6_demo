@@ -56,7 +56,6 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
     height: 0
   });
 
-  let { TOPORADIUSX, TOPORADIUSY } = radius;
 
   useEffect(() => {
     // 获取数据
@@ -92,7 +91,8 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
 
   // 初始化拓扑配置
   function initialConfig () {
-    
+    const { TOPORADIUSX, TOPORADIUSY } = radius;
+
     if (!global_graph) {
       // 默认布局配置
       const defaultLayout = {
@@ -210,6 +210,7 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
 
   // 渲染数据
   function renderTopo() {
+    const { TOPORADIUSX, TOPORADIUSY } = radius;
     const { width, height } = canvas;
     const x = width / 2; 
     const y = (height - 40) / 2;
@@ -237,41 +238,49 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
   }
 
   function handleRaduisChange(e, value) {
+    let x = radius.TOPORADIUSX, 
+      y = radius.TOPORADIUSY;
+
     if (e === 'x') {
-      radius.TOPORADIUSX = value;
+      x = value;
     } else {
-      radius.TOPORADIUSY = value;
+      y = value;
     }
-    changeRadius(radius);
+
+    changeRadius({
+      TOPORADIUSX: x, 
+      TOPORADIUSY: y
+    });
+
     global_graph.updateLayout({
-      radiusX: TOPORADIUSX, // 必须
-      radiusY: TOPORADIUSY
+      radiusX: x, // 必须
+      radiusY: y
     })
-    localStorage.setItem('topo-layout-size', JSON.stringify({ x: TOPORADIUSX, y: TOPORADIUSY }));
+
+    localStorage.setItem('topo-layout-size', JSON.stringify({ x, y }));
   }
 
-  
   const toolBarProps = {
-    xR: TOPORADIUSX,
-    yR: TOPORADIUSY,
+    xR: radius.TOPORADIUSX,
+    yR: radius.TOPORADIUSY,
     handleChange: handleRaduisChange
   };
 
   return (
     <div className="gg-flow">
-      <div className="flow-header">
-        <MiniSilder
-          handleZoom={handleZoom}
-          config={zooms}
-        />
-        <ToolBar {...toolBarProps} />
-        <Button className="screen-button"
-          type="link"
-          onClick={toggleScreen}
-        >
-          <Icon type={!isFullScreen ? "fullscreen" : "fullscreen-exit"} />
-        </Button>
-      </div>
+      <MiniSilder
+        handleZoom={handleZoom}
+        config={zooms}
+      />
+      <ToolBar 
+        {...toolBarProps}
+      />
+      <Button className="screen-button"
+        type="link"
+        onClick={toggleScreen}
+      >
+        <Icon type={!isFullScreen ? "fullscreen" : "fullscreen-exit"} />
+      </Button>
       <div className="flow-canvas"
         ref={ref} 
       >
