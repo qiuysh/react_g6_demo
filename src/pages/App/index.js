@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Layout, message } from 'antd';
+import { message, Layout } from 'antd';
 import TopoFlow from '@components/Topo';
 import classNames from 'classnames';
 import { getTopo } from './service';
 import './style.less';
-// import '../../components/Topo/style.less';
 
 const TIMERANGE = 5000;
 
@@ -72,7 +71,7 @@ function App() {
   return (
     <Layout
       className={classNames('', {
-        "s-fullscree": isFullScreen
+        "s-fullscreen": isFullScreen
       })}
     >
       <TopoFlow 

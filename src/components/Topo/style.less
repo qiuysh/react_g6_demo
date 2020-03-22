@@ -2,6 +2,7 @@
 @darkPanel: #1D2739;
 @borderColor: #ededed;
 
+
 .gg-flow {
   position: relative;
   height: 100vh;
@@ -63,6 +64,7 @@
   }
   .screen-button {
     position: absolute;
+    height: 39px;
     z-index: 2;
     right: 0;
     font-size: 20px;
@@ -83,11 +85,11 @@
 }
 
 .s-fullscreen {
-  background: @darkBackground!important;
+  background: @darkBackground;
   border: 1px solid #ddd;
 
   .gg-flow {
-    background: @darkBackground!important;
+    background: @darkBackground;
   }
 
   .offset {
@@ -104,7 +106,7 @@
     }
   }
   .flow-canvas {
-    background: @darkBackground!important;
+    background: @darkBackground;
     .no-empty {
       color: #f4f4f4;
     }
@@ -116,7 +118,7 @@
       font-weight: bold;
     }
     .ant-input {
-      background: @darkPanel!important;
+      background: @darkBackground;
       color: #fff;
       &:focus {
         box-shadow: none;
@@ -124,3 +126,5 @@
     }
   }
 }
+
+

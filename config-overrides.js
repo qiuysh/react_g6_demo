@@ -16,7 +16,7 @@ module.exports = {
     addLessLoader({
       javascriptEnabled: true,
     }),
-  
+
     // 装饰器
     addDecoratorsLegacy(),
   

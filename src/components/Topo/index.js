@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import { Icon, Button } from 'antd';
@@ -32,7 +32,10 @@ TopoFlow.propTypes = {
   toggleScreen: PropTypes.func,
 }
 
-
+/**
+ * 拓扑组件入口
+ * @param {*} param0 
+ */
 function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
 
   const ref = useRef(null);
@@ -235,12 +238,12 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
 
   function handleRaduisChange(e, value) {
     if (e === 'x') {
-      TOPORADIUSX = value;
+      radius.TOPORADIUSX = value;
     } else {
-      TOPORADIUSY = value;
+      radius.TOPORADIUSY = value;
     }
     changeRadius(radius);
-    this.global_graph.updateLayout({
+    global_graph.updateLayout({
       radiusX: TOPORADIUSX, // 必须
       radiusY: TOPORADIUSY
     })
@@ -256,12 +259,19 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
 
   return (
     <div className="gg-flow">
-      <MiniSilder 
-        handleZoom={handleZoom}
-        config={zooms}
-      />
-      <ToolBar {...toolBarProps} />
-      <Button className="screen-button" type="link" onClick={toggleScreen}><Icon type={!isFullScreen ? "fullscreen": "fullscreen-exit" } /></Button>
+      <div className="flow-header">
+        <MiniSilder
+          handleZoom={handleZoom}
+          config={zooms}
+        />
+        <ToolBar {...toolBarProps} />
+        <Button className="screen-button"
+          type="link"
+          onClick={toggleScreen}
+        >
+          <Icon type={!isFullScreen ? "fullscreen" : "fullscreen-exit"} />
+        </Button>
+      </div>
       <div className="flow-canvas"
         ref={ref} 
       >
