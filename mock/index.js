@@ -27,8 +27,8 @@ var proxy = {
             }
           ]
         },
-        "result_code": 1,
-        "result_message":"执行成功"
+        "resultCode": 1,
+        "resultMessage":"执行成功"
       })
     )
   },

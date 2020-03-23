@@ -48,10 +48,10 @@ function App() {
 
   async function fetchTopo () {
     const res = await getTopo();
-    if (res.result_code === 1) {
+    if (res.resultCode === 1) {
       getData(res.data);
     } else {
-      message.error(res.result_message);
+      message.error(res.resultMessage);
     }
   }
 

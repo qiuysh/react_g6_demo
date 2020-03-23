@@ -67,9 +67,7 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
         initialConfig();
       }
     }
-
     topo();
-    
   }, [data]);
 
 
