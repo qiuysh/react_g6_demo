@@ -24,6 +24,7 @@ module.exports = {
     addWebpackAlias({
       '@components': path.resolve('src/components'),
       '@pages': path.resolve('src/pages'),
+      '@stories': path.resolve('src/stories'),
       '@utils': path.resolve('src/utils'),
     }),
   

@@ -68,6 +68,7 @@ function TopoFlow({data, isFullScreen, handleNodeClick, toggleScreen}) {
       }
     }
     topo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
 

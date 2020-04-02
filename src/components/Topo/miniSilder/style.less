@@ -1,0 +1,48 @@
+.gg-slider {
+  position: absolute;
+  width: 200px;
+  height: 40px;
+  top: -1px;
+  left: -1px;
+  border: 1px solid @borderColor;
+  z-index: 2;
+  .ant-row {
+    margin: 0;
+    .ant-col-3 {
+      text-align: center;
+    }
+  }
+  .command {
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    padding: 0 3px;
+    border: 0;
+    background: none;
+  }
+  .ant-input {
+    height: 38px;
+    border: 0;
+    padding: 0;
+    transform: scale(.9);
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.s-fullscreen {
+  .gg-slider {
+    .anticon {
+      color: #fff;
+      font-weight: bold;
+    }
+    .ant-input {
+      background: @darkBackground;
+      color: #fff;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}

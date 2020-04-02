@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Icon, Slider, Row, Col, Input, Button } from 'antd';
-
+import './style.less';
 
 function MiniSilder({ config, handleZoom }) {
 
@@ -17,6 +17,7 @@ function MiniSilder({ config, handleZoom }) {
 
   useEffect(() => {
     if (config) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       options = {...options, ...config};
     }
     changeZoomValue(options)
