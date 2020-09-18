@@ -1,0 +1,92 @@
+@darkBackground: #0D1731;
+@darkPanel: #1D2739;
+@borderColor: #ededed;
+
+.tool-util {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  li {
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin: 10px 0;
+    border-radius: 20px;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    a {
+      display: block;
+    }
+    i {
+      vertical-align: -3px;
+    }
+    
+  }
+  .node-menu {
+    li:nth-child(odd) {
+      margin-left: -15px;
+    }
+  }
+}
+
+.custopo-flow{
+  position: relative;
+  height: 100vh;
+  border: 1px solid @borderColor;
+  overflow: hidden;
+  background: #fff;
+  .custopo-header {
+    height: 56px;
+    border-bottom: 1px solid #ddd;
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        float: right;
+      }
+    }
+  }
+  .screen-button {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    z-index: 2;
+    padding: 0;
+    border: 1px solid #ddd;
+    top: 12px;
+    right: 32px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .flow-canvas {
+    height: 100vh;
+    background: #fff;
+    .no-empty {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      text-align: center;
+      font-size: 1rem;
+      color: rgba(0, 0, 0, 0.43);
+    }
+  }
+}
+
+.s-fullscreen {
+  background: @darkBackground;
+  border: 1px solid #ddd;
+
+  .custopo-flow {
+    background: @darkBackground;
+  }
+
+  .flow-canvas {
+    background: @darkBackground;
+    .no-empty {
+      color: #f4f4f4;
+    }
+  }
+}

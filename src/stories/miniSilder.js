@@ -10,9 +10,15 @@ const zooms = {
   tipFormatter: null
 };
 
+MiniSilder.story = {
+  name: "演示",
+};
+
 export default {
   title: '缩放组件',
   component: MiniSilder,
 };
+
+
 
 export const Text = () => <MiniSilder handleZoom={action('clicked')} config={zooms}/>;

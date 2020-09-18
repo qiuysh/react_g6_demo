@@ -32,5 +32,32 @@ var proxy = {
       })
     )
   },
+  'GET /api/v1/custopo': function (req, res) {
+    return res.send(Mock.mock({
+      "data":{
+        "edges|1-20":[
+          {
+            "id|+1": 0,
+            "source": "node-@integer(1, 8)",
+            "target": "node-@integer(1, 8)",
+          },
+        ],
+        "nodes|8":[
+          {
+            "i|+1": 1,
+            "id|": function() {
+              return 'node-'+this.i;
+            },
+            "label":function() {
+              return '节点-'+this.i;
+            },
+          }
+        ]
+      },
+      "resultCode": 1,
+      "resultMessage":"执行成功"
+    })
+  )
+  },
 }
 module.exports = (noProxy ? {} : delay(proxy, 1000)); 

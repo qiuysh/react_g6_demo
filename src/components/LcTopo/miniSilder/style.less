@@ -1,0 +1,44 @@
+@darkBackground: #0D1731;
+@darkPanel: #1D2739;
+@borderColor: #ededed;
+
+.custopo-slider {
+  position: absolute;
+  width: 100px;
+  height: 32px;
+  border-radius: 4px;
+  top: 12px;
+  right: 75px;
+  border: 1px solid #ddd;
+  z-index: 2;
+  .ant-row {
+    margin: 0;
+    .ant-col-12 {
+      text-align: center;
+    }
+  }
+  .command {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0 3px;
+    border: 0;
+    background: none;
+  }
+}
+
+.s-fullscreen {
+  .custopo-slider {
+    .anticon {
+      color: #fff;
+      font-weight: bold;
+    }
+    .ant-input {
+      background: @darkBackground;
+      color: #fff;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}

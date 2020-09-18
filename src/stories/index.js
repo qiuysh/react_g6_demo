@@ -1,11 +1,4 @@
-/** @format */
-
 import React from "react";
-import { linkTo } from "@storybook/addon-links";
-export default {
-  title: "介绍",
-  component: Text,
-};
 
 export const Text = () => (
   <div>
@@ -15,4 +8,10 @@ export const Text = () => (
 
 Text.story = {
   name: "说明文档",
+};
+
+
+export default {
+  title: "介绍",
+  component: Text,
 };
