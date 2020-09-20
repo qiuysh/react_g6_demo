@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { findDOMNode } from 'react-dom';
 import { Icon, Button, Modal } from 'antd';
-import G6 from '@antv/g6';
 import MiniSilder from './miniSilder';
 
 const MAX_ZOOM = 2;  // 缩放最大值

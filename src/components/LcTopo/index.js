@@ -5,6 +5,8 @@ import G6 from '@antv/g6';
 import ExtactHeader from './extactHeader';
 import './custemEdge';
 import './custemNode';
+import './custemNode2';
+import './custemNode3';
 import './style.less';
 
 // 声明全局global_graph对象
@@ -32,7 +34,7 @@ export default (props) => {
   });
 
 
-  const menu = new G6.Menu({
+  const contextmenu = new G6.Menu({
     className: "tool-util",
     offsetX: 16 + 10,
     offsetY: -26,
@@ -120,9 +122,9 @@ export default (props) => {
             ],
             
           },
-          plugins: [ menu ],
+          plugins: [contextmenu],
           fitView: true,
-          renderer: 'svg',
+          // renderer: 'svg',
           layout: {
             type: 'dagre',
             rankdir: 'TB',
@@ -135,11 +137,11 @@ export default (props) => {
         // 设置节点
         global_graph.node(node => {
           node.size = [70, 70]; // 节点大小
-          node.type = "dom-node";  // 节点形状circle、rect
+          node.type = "cust-node";  // 节点形状circle、rect
           node.style = {
-            fill: defultLableColor,  // 节点背景颜色
-            lineWidth: 2.3,                           // 节点边框粗细
-            stroke: defultLableColor,                 // 节点边框颜色
+            fill: '#fff',  // 节点背景颜色
+            lineWidth: 2,                           // 节点边框粗细
+            stroke: '#ccc',                 // 节点边框颜色
             opacity: 1
           };
           node.labelCfg = {
@@ -160,7 +162,7 @@ export default (props) => {
 
         // 设置边配置
         global_graph.edge(edge => {
-          edge.shape = 'line';  // 边的形状
+          edge.type = 'line';  // 边的形状
           edge.style = {
             lineWidth: 2.3, // 边的粗细
             stroke: '#ccc',  // 边的颜色
@@ -172,11 +174,8 @@ export default (props) => {
           return edge;
         });
 
+        
 
-        global_graph.on('node:click', e => {
-          const node = e.item;
-          console.log(node)
-        });
         // 绑定节点hover事件
         global_graph.on('node:mouseenter', e => {
           const node = e.item;
@@ -195,21 +194,45 @@ export default (props) => {
           model.oriLabel = model.label;
           global_graph.updateItem(node, {
             style: {
+              stroke: "#ccc",
+            },
+          });
+        });
+
+
+        // 绑定节点hover事件
+        global_graph.on('edge:mouseenter', e => {
+          const edge = e.item;
+          const model = edge.getModel();
+          model.oriLabel = model.label;
+          global_graph.updateItem(edge, {
+            style: {
               stroke: defultLableColor,
             },
           });
         });
 
+        global_graph.on('edge:mouseleave', e => {
+          const edge = e.item;
+          const model = edge.getModel();
+          model.oriLabel = model.label;
+          global_graph.updateItem(edge, {
+            style: {
+              stroke: "#ccc",
+            },
+          });
+        });
+
         // 监听节点鼠标事件
-        global_graph.on('aftercreateedge', e => {
-          const edges = global_graph.save().edges;
-          G6.Util.processParallelEdges(edges);
-          global_graph.getEdges().forEach((edge, i) => {
-            global_graph.updateItem(edge, edges[i])
-          })
-        })
+        // global_graph.on('aftercreateedge', e => {
+        //   const edges = global_graph.save().edges;
+        //   G6.Util.processParallelEdges(edges);
+        //   global_graph.getEdges().forEach((edge, i) => {
+        //     global_graph.updateItem(edge, edges[i])
+        //   })
+        // })
         // 渲染数据
-        renderTopo();
+        // renderTopo();
       } catch (error) {
         console.log(error)
       }
@@ -217,15 +240,75 @@ export default (props) => {
   }
 
 
+  function initEvent() {
+
+    const listener = (dom) => {
+      const nodeId = dom.id;
+      if (!nodeId) return;
+      const node = global_graph.findById(nodeId);
+      let stroke = '';
+      debugger
+      if (!node.hasState('selected')) {
+        stroke = '#f00';
+        global_graph.setItemState(node, 'selected', true);
+      } else {
+        stroke = 'red';
+        global_graph.setItemState(node, 'selected', false);
+      }
+      global_graph.updateItem(nodeId, {
+        style: {
+          stroke,
+        },
+      });
+    };
+
+    const listenerContextmenu = (dom) => {
+      const nodeId = dom.id;
+      if (!nodeId) return;
+      const node = global_graph.findById(nodeId);
+      console.log(contextmenu)
+    };
+
+    const bindClickListener = () => {
+      const domNodes = document.body.querySelectorAll('.dom-node');
+      console.log(domNodes)
+      for (let i = 0; i < domNodes.length; i++) {
+        const dom = domNodes[i];
+        // open the following lines pls!
+        console.log(dom)
+        dom.addEventListener('click', (e) => {
+          listener(dom)
+        });
+        dom.addEventListener('contextmenu', (e) => {
+          listenerContextmenu(dom)
+        });
+      }
+    };
+
+    bindClickListener();
+
+    // after update the item, all the DOMs will be re-rendered
+    // so the listeners should be rebinded to the new DOMs
+    global_graph.on('afterupdateitem', (e) => {
+      bindClickListener();
+    });
+   
+  }
+
+
   // 渲染数据
   function renderTopo() {
     // 改变画布大小
     setCanvas();
-    // 非默认布局的渲染
-    global_graph.changeData(data);
+    global_graph.data(data);
+    global_graph.render();
     // 移动到原点
     global_graph.fitCenter();
+
+    // initEvent();
   }
+  
+  
 
   return (
     <div className="custopo-flow">
